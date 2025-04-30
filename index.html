@@ -3,34 +3,162 @@
 <head>
   <meta charset="UTF-8">
   <title>SocialTap</title>
-  <script>window.location.href = "maintenance.html";</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Optional: Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: sans-serif;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
       text-align: center;
-      background: #f0f0f0;
-      padding-top: 50px;
     }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      opacity: 0.8;
+    }
+
     .button {
       display: block;
-      margin: 20px auto;
-      padding: 15px 30px;
+      margin: 15px 0;
+      padding: 14px 28px;
       font-size: 18px;
-      color: white;
+      font-weight: 600;
+      border-radius: 12px;
       text-decoration: none;
-      border-radius: 10px;
-      width: 220px;
+      color: white;
+      width: 260px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
     .youtube { background-color: #FF0000; }
     .instagram { background-color: #C13584; }
     .twitter { background-color: #1DA1F2; }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    #userInfo {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h1>My Social Links</h1>
-  <a1> This website is on development*</a1>
+  <h1>🌐 SocialTap</h1>
+  <div class="subtitle">This website is under development*</div>
+
+  <!-- Auth Buttons -->
+  <button id="anonymousSignIn" class="button" onclick="signInAnonymously()">Sign in Anonymously</button>
+  <button id="githubSignIn" class="button" onclick="signInWithGitHub()">Sign in with GitHub</button>
+
+  <!-- Social Links -->
   <a class="button youtube" href="https://youtube.com/@TeamObby" target="_blank">YouTube</a>
   <a class="button instagram" href="https://instagram.com/team_obby_yt" target="_blank">Instagram</a>
   <a class="button twitter" href="https://twitter.com/TeamObby_" target="_blank">Twitter</a>
+
+  <!-- User Info and Logout -->
+  <div id="userInfo">
+    <p>Welcome, <span id="userName"></span></p>
+    <button id="logoutButton" class="button" onclick="signOut()">Log Out</button>
+  </div>
+
+  <footer>© 2025 TeamObby</footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script>
+    // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBibxB6TRlFsPBxRJnhAmxUvoAUr_C8AxA",
+    authDomain: "socialtap-996e1.firebaseapp.com",
+    projectId: "socialtap-996e1",
+    storageBucket: "socialtap-996e1.firebasestorage.app",
+    messagingSenderId: "516856028369",
+    appId: "1:516856028369:web:e83315a63e14359415b9f0",
+    measurementId: "G-7Z0S2BPQSH"
+  };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Sign in anonymously
+    function signInAnonymously() {
+      auth.signInAnonymously().then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Anonymous user signed in:", user.uid);
+        updateUI(user);
+      }).catch((error) => {
+        console.error("Error during anonymous sign-in:", error.message);
+      });
+    }
+
+    // Sign in with GitHub
+    function signInWithGitHub() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      auth.signInWithPopup(provider).then((result) => {
+        const user = result.user;
+        console.log("GitHub user signed in:", user.displayName);
+        updateUI(user);
+      }).catch((error) => {
+        console.error("Error during GitHub sign-in:", error.message);
+      });
+    }
+
+    // Update UI based on user authentication state
+    function updateUI(user) {
+      document.getElementById("userInfo").style.display = "block";
+      document.getElementById("userName").textContent = user.displayName || "Anonymous User";
+      document.getElementById("logoutButton").style.display = "block";
+      document.getElementById("anonymousSignIn").style.display = "none";
+      document.getElementById("githubSignIn").style.display = "none";
+    }
+
+    // Sign out
+    function signOut() {
+      auth.signOut().then(() => {
+        console.log("User signed out");
+        document.getElementById("userInfo").style.display = "none";
+        document.getElementById("logoutButton").style.display = "none";
+        document.getElementById("anonymousSignIn").style.display = "block";
+        document.getElementById("githubSignIn").style.display = "block";
+      });
+    }
+
+    // Monitor auth state changes
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        updateUI(user);
+      } else {
+        document.getElementById("userInfo").style.display = "none";
+        document.getElementById("logoutButton").style.display = "none";
+        document.getElementById("anonymousSignIn").style.display = "block";
+        document.getElementById("githubSignIn").style.display = "block";
+      }
+    });
+  </script>
 </body>
 </html>
