@@ -79,17 +79,21 @@
     justify-content: center;
     text-decoration: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     z-index: 1000;
 }
 
 .github-corner:hover {
-  background-color: #444c56;
+  transform: scale(1.1);
 }
 
-.github-corner i {
-  font-size: 24px;
+/* OFFLINE MODE */
+.github-corner.offline {
+  background-color: #555;
+  color: #aaa;
+  pointer-events: none;
 }
+
 
   
 
