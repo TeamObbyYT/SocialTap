@@ -2,17 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Guess the Secret Color (Encrypted)</title>
+  <title>Color Mixing Puzzle</title>
   <style>
     body {
       text-align: center;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f0f0f0;
       padding-top: 50px;
-    }
-
-    h1 {
-      margin-bottom: 30px;
     }
 
     .keys-container {
@@ -27,7 +23,7 @@
       height: 100px;
       border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.3s;
+      transition: transform 0.2s;
     }
 
     .cube:hover {
@@ -40,49 +36,70 @@
     .yellow { background-color: gold; }
     .green  { background-color: green; }
 
+    #guess, #feedback {
+      font-size: 20px;
+      margin-top: 15px;
+    }
+
     #feedback {
-      font-size: 24px;
       font-weight: bold;
-      color: #333;
     }
   </style>
 </head>
 <body>
 
-  <h1>Guess the Secret Color</h1>
-  <p>Click a cube. The correct color is encrypted.</p>
+  <h1>Mix Two Colors to Find the Secret</h1>
+  <p>Click two colors to try to create the hidden color.</p>
 
   <div class="keys-container">
-    <div class="cube red"    onclick="checkGuess('red')"></div>
-    <div class="cube blue"   onclick="checkGuess('blue')"></div>
-    <div class="cube yellow" onclick="checkGuess('yellow')"></div>
-    <div class="cube green"  onclick="checkGuess('green')"></div>
+    <div class="cube red" onclick="pickColor('red')"></div>
+    <div class="cube blue" onclick="pickColor('blue')"></div>
+    <div class="cube yellow" onclick="pickColor('yellow')"></div>
+    <div class="cube green" onclick="pickColor('green')"></div>
   </div>
 
+  <div id="guess">Your mix: </div>
   <div id="feedback"></div>
 
   <script>
-    // Precomputed SHA-256 hash of "purple" (in hex)
-    const hashedAnswer = "e6c41e48de2e42d83ad56b30a1908c9cbe2f812365cd5421b25e3247f3d5ab80";
+    let selectedColors = [];
 
-    async function hashColor(color) {
+    // Hashed value of the correct mix, e.g., "red+blue" hashed with SHA-256
+    const hashedCorrectMix = "1a2ff1b8ec28fd4f2e23484a6a3f80a9ad97df7f393e632c3cf5ff56a48c186c";
+    // This is SHA-256 of "red+blue"
+
+    async function hashText(text) {
       const encoder = new TextEncoder();
-      const data = encoder.encode(color);
+      const data = encoder.encode(text);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    async function checkGuess(color) {
-      const feedback = document.getElementById("feedback");
-      const hashedGuess = await hashColor(color);
+    async function pickColor(color) {
+      const guessEl = document.getElementById("guess");
+      const feedbackEl = document.getElementById("feedback");
 
-      if (hashedGuess === hashedAnswer) {
-        feedback.textContent = "✅ Correct! You found the encrypted color!";
-        feedback.style.color = "green";
+      selectedColors.push(color);
+
+      if (selectedColors.length === 2) {
+        const guessString = `${selectedColors[0]}+${selectedColors[1]}`;
+        const hashedGuess = await hashText(guessString);
+
+        guessEl.textContent = `Your mix: ${selectedColors[0]} + ${selectedColors[1]}`;
+
+        if (hashedGuess === hashedCorrectMix) {
+          feedbackEl.textContent = "✅ Correct mix! You discovered the secret color!";
+          feedbackEl.style.color = "green";
+        } else {
+          feedbackEl.textContent = "❌ Nope. Try another mix.";
+          feedbackEl.style.color = "crimson";
+        }
+
+        selectedColors = [];
       } else {
-        feedback.textContent = "❌ Wrong guess. That’s not the hidden color.";
-        feedback.style.color = "crimson";
+        guessEl.textContent = `First color: ${color}`;
+        feedbackEl.textContent = "";
       }
     }
   </script>
