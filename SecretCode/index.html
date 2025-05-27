@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the Secret Color (Encrypted)</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding-top: 50px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    .keys-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .cube {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .cube:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .red    { background-color: red; }
+    .blue   { background-color: blue; }
+    .yellow { background-color: gold; }
+    .green  { background-color: green; }
+
+    #feedback {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Guess the Secret Color</h1>
+  <p>Click a cube. The correct color is encrypted.</p>
+
+  <div class="keys-container">
+    <div class="cube red"    onclick="checkGuess('red')"></div>
+    <div class="cube blue"   onclick="checkGuess('blue')"></div>
+    <div class="cube yellow" onclick="checkGuess('yellow')"></div>
+    <div class="cube green"  onclick="checkGuess('green')"></div>
+  </div>
+
+  <div id="feedback"></div>
+
+  <script>
+    // Precomputed SHA-256 hash of "purple" (in hex)
+    const hashedAnswer = "e6c41e48de2e42d83ad56b30a1908c9cbe2f812365cd5421b25e3247f3d5ab80";
+
+    async function hashColor(color) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(color);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function checkGuess(color) {
+      const feedback = document.getElementById("feedback");
+      const hashedGuess = await hashColor(color);
+
+      if (hashedGuess === hashedAnswer) {
+        feedback.textContent = "✅ Correct! You found the encrypted color!";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = "❌ Wrong guess. That’s not the hidden color.";
+        feedback.style.color = "crimson";
+      }
+    }
+  </script>
+
+</body>
+</html>
