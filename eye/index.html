@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Infinite Scrolling GitHub Images</title>
+  <title>Eye.</title>
   <style>
     body {
       margin: 0;
@@ -20,30 +20,54 @@
 <script>
   const imageSrc = 'https://raw.githubusercontent.com/TeamObbyYT/SocialTap/main/eye/eye.png';
   const imagesPerScroll = 20;
+  let contentHeight = window.innerHeight * 2;
+  const placedImages = [];
+
+  function isOverlapping(newX, newY, newW, newH) {
+    return placedImages.some(({ x, y, width, height }) => {
+      return !(
+        newX + newW < x ||
+        newX > x + width ||
+        newY + newH < y ||
+        newY > y + height
+      );
+    });
+  }
 
   function createRandomImage() {
+    const maxAttempts = 50;
+    let attempts = 0;
+    let x, y, size, w, h;
+
+    do {
+      size = Math.floor(Math.random() * 150) + 50;
+      w = size;
+      h = size;
+      x = Math.random() * (window.innerWidth - w);
+      y = window.scrollY + Math.random() * (window.innerHeight - h);
+      attempts++;
+    } while (isOverlapping(x, y, w, h) && attempts < maxAttempts);
+
+    if (attempts >= maxAttempts) return; // give up if can't find space
+
     const img = document.createElement('img');
     img.src = imageSrc;
     img.className = 'image';
-
-    const size = Math.floor(Math.random() * 150) + 50;
-    img.style.width = `${size}px`;
-    img.style.height = 'auto';
-
-    // Position images within current scroll range
-    img.style.left = `${Math.random() * window.innerWidth}px`;
-    img.style.top = `${window.scrollY + Math.random() * window.innerHeight}px`;
+    img.style.width = `${w}px`;
+    img.style.height = `${h}px`;
+    img.style.left = `${x}px`;
+    img.style.top = `${y}px`;
 
     document.body.appendChild(img);
+    placedImages.push({ x, y, width: w, height: h });
   }
 
   function addImages(count) {
     for (let i = 0; i < count; i++) {
       createRandomImage();
     }
-
-    // Increase the body height to allow more scrolling
-    document.body.style.height = `${document.body.scrollHeight + window.innerHeight}px`;
+    contentHeight += window.innerHeight;
+    document.body.style.height = `${contentHeight}px`;
   }
 
   // Initial load
@@ -51,7 +75,7 @@
 
   // Infinite scroll handler
   window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 100) {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 200) {
       addImages(imagesPerScroll);
     }
   });
