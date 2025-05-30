@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Images from GitHub</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      overflow: hidden;
+    }
+    .image {
+      position: absolute;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const imageSrc = 'https://raw.githubusercontent.com/TeamObbyYT/SocialTap/main/eye/eye.png'; //
+  const imageCount = 20;
+
+  for (let i = 0; i < imageCount; i++) {
+    const img = document.createElement('img');
+    img.src = imageSrc;
+    img.className = 'image';
+
+    const size = Math.floor(Math.random() * 150) + 50;
+    img.style.width = `${size}px`;
+    img.style.height = 'auto';
+    img.style.left = `${Math.random() * window.innerWidth}px`;
+    img.style.top = `${Math.random() * window.innerHeight}px`;
+
+    document.body.appendChild(img);
+  }
+</script>
+
+</body>
+</html>
 
