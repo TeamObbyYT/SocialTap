@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Random Images from GitHub</title>
+  <title>Infinite Scrolling GitHub Images</title>
   <style>
     body {
       margin: 0;
       background-color: black;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     .image {
       position: absolute;
@@ -18,10 +18,10 @@
 <body>
 
 <script>
-  const imageSrc = 'https://raw.githubusercontent.com/TeamObbyYT/SocialTap/main/eye/eye.png'; //
-  const imageCount = 20;
+  const imageSrc = 'https://raw.githubusercontent.com/TeamObbyYT/SocialTap/main/eye/eye.png';
+  const imagesPerScroll = 20;
 
-  for (let i = 0; i < imageCount; i++) {
+  function createRandomImage() {
     const img = document.createElement('img');
     img.src = imageSrc;
     img.className = 'image';
@@ -29,13 +29,33 @@
     const size = Math.floor(Math.random() * 150) + 50;
     img.style.width = `${size}px`;
     img.style.height = 'auto';
+
+    // Position images within current scroll range
     img.style.left = `${Math.random() * window.innerWidth}px`;
-    img.style.top = `${Math.random() * window.innerHeight}px`;
+    img.style.top = `${window.scrollY + Math.random() * window.innerHeight}px`;
 
     document.body.appendChild(img);
   }
+
+  function addImages(count) {
+    for (let i = 0; i < count; i++) {
+      createRandomImage();
+    }
+
+    // Increase the body height to allow more scrolling
+    document.body.style.height = `${document.body.scrollHeight + window.innerHeight}px`;
+  }
+
+  // Initial load
+  addImages(imagesPerScroll);
+
+  // Infinite scroll handler
+  window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 100) {
+      addImages(imagesPerScroll);
+    }
+  });
 </script>
 
 </body>
 </html>
-
