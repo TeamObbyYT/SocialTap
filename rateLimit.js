@@ -3,7 +3,7 @@ const reloadThreshold = 10000; // 10 seconds for reload spam
 const lastClicks = new Map();
 
 // Redirect URL if spam is detected
-const rateLimitRedirectURL = "rate_limit.html";
+const rateLimitRedirectURL = "rate_limit";
 
 // Detect rapid page reloads
 (function detectRapidReload() {
