@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Rate Limited</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="10; url=index.html"> <!-- Auto-redirect after 10 seconds -->
   <style>
     body {
       background: #141e30;
@@ -12,18 +13,58 @@
       text-align: center;
       padding: 50px;
     }
+
     h1 {
       font-size: 3rem;
       margin-bottom: 10px;
     }
+
     p {
       font-size: 1.2rem;
       opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    .back-button {
+      background-color: #7289DA;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      background-color: #5b6eae;
     }
   </style>
 </head>
 <body>
   <h1>⚠️ Rate Limited</h1>
-  <p>You were clicking or refreshing too fast.<br>Please wait a few seconds and try again.</p>
+  <p>You were clicking or refreshing too fast.</p>
+  <div class="countdown">Redirecting in <span id="timer">10</span> seconds...</div>
+  <a href="index.html" class="back-button">Go Back Now</a>
+
+  <script>
+    // Countdown script
+    let secondsLeft = 10;
+    const timerSpan = document.getElementById("timer");
+
+    const countdown = setInterval(() => {
+      secondsLeft--;
+      timerSpan.textContent = secondsLeft;
+      if (secondsLeft <= 0) {
+        clearInterval(countdown);
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
