@@ -1,85 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Eye.</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Not Found</title>
   <style>
     body {
       margin: 0;
-      background-color: black;
-      overflow-x: hidden;
+      padding: 0;
+      background: #0e0e0e;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
     }
-    .image {
-      position: absolute;
-      pointer-events: none;
+    h1 {
+      font-size: 5rem;
+      color: #ff4c4c;
+      margin: 0;
+    }
+    h2 {
+      font-size: 2rem;
+      margin: 10px 0;
+    }
+    p {
+      color: #999;
+      margin-bottom: 20px;
+    }
+    a {
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #ff4c4c;
+      color: white;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    a:hover {
+      background-color: #e04141;
     }
   </style>
 </head>
 <body>
-
-<script>
-  const imageSrc = 'https://raw.githubusercontent.com/TeamObbyYT/SocialTap/main/eye/eye.png';
-  const imagesPerScroll = 20;
-  let contentHeight = window.innerHeight * 2;
-  const placedImages = [];
-
-  function isOverlapping(newX, newY, newW, newH) {
-    return placedImages.some(({ x, y, width, height }) => {
-      return !(
-        newX + newW < x ||
-        newX > x + width ||
-        newY + newH < y ||
-        newY > y + height
-      );
-    });
-  }
-
-  function createRandomImage() {
-    const maxAttempts = 50;
-    let attempts = 0;
-    let x, y, size, w, h;
-
-    do {
-      size = Math.floor(Math.random() * 150) + 50;
-      w = size;
-      h = size;
-      x = Math.random() * (window.innerWidth - w);
-      y = window.scrollY + Math.random() * (window.innerHeight - h);
-      attempts++;
-    } while (isOverlapping(x, y, w, h) && attempts < maxAttempts);
-
-    if (attempts >= maxAttempts) return; // give up if can't find space
-
-    const img = document.createElement('img');
-    img.src = imageSrc;
-    img.className = 'image';
-    img.style.width = `${w}px`;
-    img.style.height = `${h}px`;
-    img.style.left = `${x}px`;
-    img.style.top = `${y}px`;
-
-    document.body.appendChild(img);
-    placedImages.push({ x, y, width: w, height: h });
-  }
-
-  function addImages(count) {
-    for (let i = 0; i < count; i++) {
-      createRandomImage();
-    }
-    contentHeight += window.innerHeight;
-    document.body.style.height = `${contentHeight}px`;
-  }
-
-  // Initial load
-  addImages(imagesPerScroll);
-
-  // Infinite scroll handler
-  window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 200) {
-      addImages(imagesPerScroll);
-    }
-  });
-</script>
-
+  <h1>404</h1>
+  <h2>Not found</h2>
+  <p>The path you tried to use is either not longer available or is has been removed or path name has been changed.</p>
+  <a href="https://teamobbyyt.github.io/SocialTap">Go Back Home</a>
 </body>
 </html>
