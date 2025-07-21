@@ -50,7 +50,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.5rem;
-      max-width: 800px;
+      max-width: 1000px;
       width: 100%;
     }
 
@@ -66,7 +66,6 @@
       text-decoration: none;
       color: var(--text-color);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      position: relative;
     }
 
     .card:hover {
@@ -81,7 +80,20 @@
 
     .card span {
       font-size: 0.95rem;
+      text-align: center;
     }
+
+    /* Custom icon colors */
+    .card.youtube i { color: #FF0000; }
+    .card.instagram i { color: #C13584; }
+    .card.twitter i { color: #1DA1F2; }
+    .card.guilded i { color: #F5C400; }
+    .card.discord i { color: #7289DA; }
+    .card.tiktok i { color: #ffffff; }
+    .card.twitch i { color: #9146FF; }
+    .card.soundcloud i { color: #FF7700; }
+    .card.itch i { color: #fa5c5c; }
+    .card.steam i { color: #171a21; }
 
     footer {
       margin-top: 4rem;
@@ -131,32 +143,48 @@
 <body>
 
   <h1>SocialTap</h1>
-  <p class="subtitle">Connect with TeamObby across the web</p>
+  <p class="subtitle">Connect with TeamObby across platforms</p>
 
   <div class="card-container">
-    <a class="card" href="https://youtube.com/@TeamObby">
-      <i class="fab fa-youtube" style="color:#FF0000;"></i>
+    <a class="card youtube" href="https://youtube.com/@TeamObby">
+      <i class="fab fa-youtube"></i>
       <span>YouTube</span>
     </a>
-    <a class="card" href="https://instagram.com/team_obby_yt">
-      <i class="fab fa-instagram" style="color:#C13584;"></i>
+    <a class="card instagram" href="https://instagram.com/team_obby_yt">
+      <i class="fab fa-instagram"></i>
       <span>Instagram</span>
     </a>
-    <a class="card" href="https://twitter.com/TeamObby_">
-      <i class="fab fa-twitter" style="color:#1DA1F2;"></i>
+    <a class="card twitter" href="https://twitter.com/TeamObby_">
+      <i class="fab fa-twitter"></i>
       <span>Twitter</span>
     </a>
-    <a class="card" href="https://www.guilded.gg/u/TeamObby">
-      <i class="fab fa-guilded" style="color:#F5C400;"></i>
+    <a class="card guilded" href="https://www.guilded.gg/u/TeamObby">
+      <i class="fab fa-guilded"></i>
       <span>Guilded</span>
     </a>
-    <a class="card" href="https://teamobbyyt.github.io/SocialTap/Discord/">
-      <i class="fab fa-discord" style="color:#7289DA;"></i>
+    <a class="card discord" href="https://teamobbyyt.github.io/SocialTap/Discord/">
+      <i class="fab fa-discord"></i>
       <span>Discord</span>
     </a>
-    <a class="card" href="https://www.tiktok.com/@teamobby_yt">
-      <i class="fab fa-tiktok" style="color:#fff;"></i>
+    <a class="card tiktok" href="https://www.tiktok.com/@teamobby_yt">
+      <i class="fab fa-tiktok"></i>
       <span>TikTok</span>
+    </a>
+    <a class="card twitch" href="https://www.twitch.tv/teamobby_yt">
+      <i class="fab fa-twitch"></i>
+      <span>Twitch</span>
+    </a>
+    <a class="card soundcloud" href="https://soundcloud.com/team-obby">
+      <i class="fab fa-soundcloud"></i>
+      <span>SoundCloud</span>
+    </a>
+    <a class="card itch" href="https://teamobby.itch.io">
+      <i class="fas fa-gamepad"></i>
+      <span>Itch.io</span>
+    </a>
+    <a class="card steam" href="https://steamcommunity.com/profiles/76561199880008755">
+      <i class="fab fa-steam-symbol"></i>
+      <span>Steam</span>
     </a>
   </div>
 
@@ -168,7 +196,7 @@
     © 2025 TeamObby<br>
     All rights reserved.<br>
     Made with ❤️ on GitHub.
-    <div class="version">Version: index.html 6.10</div>
+    <div class="version">Version: index.html 6.05</div>
   </footer>
 
   <script src="rateLimit.js"></script>
