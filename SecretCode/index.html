@@ -1,108 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Color Mixing Puzzle</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Not Found</title>
   <style>
     body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      padding-top: 50px;
-    }
-
-    .keys-container {
+      margin: 0;
+      padding: 0;
+      background: #0e0e0e;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 30px;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      font-size: 5rem;
+      color: #ff4c4c;
+      margin: 0;
+    }
+    h2 {
+      font-size: 2rem;
+      margin: 10px 0;
+    }
+    p {
+      color: #999;
       margin-bottom: 20px;
     }
-
-    .cube {
-      width: 100px;
-      height: 100px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s;
+    a {
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #ff4c4c;
+      color: white;
+      border-radius: 5px;
+      transition: background 0.3s ease;
     }
-
-    .cube:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    .red    { background-color: red; }
-    .blue   { background-color: blue; }
-    .yellow { background-color: gold; }
-    .green  { background-color: green; }
-
-    #guess, #feedback {
-      font-size: 20px;
-      margin-top: 15px;
-    }
-
-    #feedback {
-      font-weight: bold;
+    a:hover {
+      background-color: #e04141;
     }
   </style>
 </head>
 <body>
-
-  <h1>Mix Two Colors to Find the Secret</h1>
-  <p>Click two colors to try to create the hidden color.</p>
-
-  <div class="keys-container">
-    <div class="cube red" onclick="pickColor('red')"></div>
-    <div class="cube blue" onclick="pickColor('blue')"></div>
-    <div class="cube yellow" onclick="pickColor('yellow')"></div>
-    <div class="cube green" onclick="pickColor('green')"></div>
-  </div>
-
-  <div id="guess">Your mix: </div>
-  <div id="feedback"></div>
-
-  <script>
-    let selectedColors = [];
-
-    // Hashed value of the correct mix, e.g., "red+blue" hashed with SHA-256
-    const hashedCorrectMix = "1a2ff1b8ec28fd4f2e23484a6a3f80a9ad97df7f393e632c3cf5ff56a48c186c";
-    // This is SHA-256 of "red+blue"
-
-    async function hashText(text) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(text);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    async function pickColor(color) {
-      const guessEl = document.getElementById("guess");
-      const feedbackEl = document.getElementById("feedback");
-
-      selectedColors.push(color);
-
-      if (selectedColors.length === 2) {
-        const guessString = `${selectedColors[0]}+${selectedColors[1]}`;
-        const hashedGuess = await hashText(guessString);
-
-        guessEl.textContent = `Your mix: ${selectedColors[0]} + ${selectedColors[1]}`;
-
-        if (hashedGuess === hashedCorrectMix) {
-          feedbackEl.textContent = "✅ Correct mix! You discovered the secret color!";
-          feedbackEl.style.color = "green";
-        } else {
-          feedbackEl.textContent = "❌ Nope. Try another mix.";
-          feedbackEl.style.color = "crimson";
-        }
-
-        selectedColors = [];
-      } else {
-        guessEl.textContent = `First color: ${color}`;
-        feedbackEl.textContent = "";
-      }
-    }
-  </script>
-
+  <h1>404</h1>
+  <h2>Not found</h2>
+  <p>The path you tried to use is either not longer available or is has been removed or path name has been changed.</p>
+  <a href="https://teamobbyyt.github.io/SocialTap">Go Back Home</a>
 </body>
 </html>
