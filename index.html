@@ -4,133 +4,173 @@
   <meta charset="UTF-8">
   <title>SocialTap</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Font Awesome for icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    body {
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --accent: #58a6ff;
+      --text-color: #c9d1d9;
+      --radius: 20px;
+    }
+
+    * {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #141e30, #243b55);
-      color: white;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1rem;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      opacity: 0.7;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      width: 140px;
+      height: 140px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-      text-align: center;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
     }
 
-    h1 {
-      font-size: 3rem;
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(88, 166, 255, 0.1);
+    }
+
+    .card i {
+      font-size: 2rem;
       margin-bottom: 10px;
     }
 
-    .subtitle {
-      font-size: 1.2rem;
-      margin-bottom: 40px;
-      opacity: 0.8;
+    .card span {
+      font-size: 0.95rem;
     }
-
-    .button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0;
-      padding: 14px 28px;
-      font-size: 18px;
-      font-weight: 600;
-      border-radius: 12px;
-      text-decoration: none;
-      color: white;
-      width: 260px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .youtube { background-color: #FF0000; }
-    .instagram { background-color: #C13584; }
-    .twitter { background-color: #1DA1F2; }
-    .guilded { background-color: #2A2E38; }
-    .discord { background-color: #7289DA; }
-    .tiktok { background-color: #000000; }
 
     footer {
-      margin-top: 50px;
-      font-size: 0.9rem;
+      margin-top: 4rem;
+      font-size: 0.85rem;
       opacity: 0.6;
+      text-align: center;
     }
 
-    .github-corner {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: #24292e;
-      color: white;
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
+    .version {
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      opacity: 0.4;
+    }
+
+    .github-button {
+      margin-top: 30px;
+      background: #24292e;
+      padding: 0.75rem 1.2rem;
+      border-radius: 8px;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      color: white;
       text-decoration: none;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      font-weight: bold;
       transition: background-color 0.3s ease;
-      z-index: 1000;
     }
 
-    .github-corner:hover {
+    .github-button:hover {
       background-color: #444c56;
     }
 
-    .github-corner i {
-      font-size: 24px;
-    }
-
-    .icon {
-      margin-right: 10px;
-      font-size: 1.5rem;
+    @media (max-width: 480px) {
+      .card {
+        width: 120px;
+        height: 120px;
+      }
+      .card i {
+        font-size: 1.7rem;
+      }
+      .card span {
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🌐 SocialTap</h1>
-  <div class="subtitle">Welcome to the SocialTap Website!</div>
 
-  <a class="button youtube" href="https://youtube.com/@TeamObby" target="_blank">
-    <i class="fab fa-youtube icon"></i> YouTube
-  </a>
-  <a class="button instagram" href="https://instagram.com/team_obby_yt" target="_blank">
-    <i class="fab fa-instagram icon"></i> Instagram
-  </a>
-  <a class="button twitter" href="https://twitter.com/TeamObby_" target="_blank">
-    <i class="fab fa-twitter icon"></i> Twitter
-  </a>
-  <a class="button guilded" href="https://www.guilded.gg/u/TeamObby" target="_blank">
-    <i class="fab fa-guilded icon"></i> Guilded
-  </a>
-  <a class="button discord" href="https://teamobbyyt.github.io/SocialTap/Discord/" target="_blank">
-    <i class="fab fa-discord icon"></i> Discord
-  </a>
-  <a class="button tiktok" href="https://www.tiktok.com/@teamobby_yt" target="_blank">
-    <i class="fab fa-tiktok icon"></i> TikTok
+  <h1>SocialTap</h1>
+  <p class="subtitle">Connect with TeamObby across the web</p>
+
+  <div class="card-container">
+    <a class="card" href="https://youtube.com/@TeamObby">
+      <i class="fab fa-youtube" style="color:#FF0000;"></i>
+      <span>YouTube</span>
+    </a>
+    <a class="card" href="https://instagram.com/team_obby_yt">
+      <i class="fab fa-instagram" style="color:#C13584;"></i>
+      <span>Instagram</span>
+    </a>
+    <a class="card" href="https://twitter.com/TeamObby_">
+      <i class="fab fa-twitter" style="color:#1DA1F2;"></i>
+      <span>Twitter</span>
+    </a>
+    <a class="card" href="https://www.guilded.gg/u/TeamObby">
+      <i class="fab fa-guilded" style="color:#F5C400;"></i>
+      <span>Guilded</span>
+    </a>
+    <a class="card" href="https://teamobbyyt.github.io/SocialTap/Discord/">
+      <i class="fab fa-discord" style="color:#7289DA;"></i>
+      <span>Discord</span>
+    </a>
+    <a class="card" href="https://www.tiktok.com/@teamobby_yt">
+      <i class="fab fa-tiktok" style="color:#fff;"></i>
+      <span>TikTok</span>
+    </a>
+  </div>
+
+  <a class="github-button" href="https://github.com/TeamObbyYT">
+    <i class="fab fa-github"></i> GitHub
   </a>
 
-  <footer>© 2025 TeamObby.
-    <br>All rights reserved.
-    <br>Made on Github.</footer>
-  <a>version update index.html : 6.05</a>
+  <footer>
+    © 2025 TeamObby<br>
+    All rights reserved.<br>
+    Made with ❤️ on GitHub.
+    <div class="version">Version: index.html 6.05</div>
+  </footer>
 
-  <a href="https://github.com/TeamObbyYT" target="_blank" class="github-corner" aria-label="GitHub">
-    <i class="fab fa-github"></i>
-  </a>
-
-  <!-- 👇 Link to rate limiter JS file -->
   <script src="rateLimit.js"></script>
 </body>
 </html>
