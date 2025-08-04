@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Why I Quit YouTube</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #222;
+      margin-bottom: 0.3em;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #888;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Why I Quit YouTube</h1>
+    <div id="content">
+      <p>Loading message...</p>
+    </div>
+    <div class="footer">Thanks for everything — see you on the other side.</div>
+  </div>
+
+  <script>
+    fetch('Update.txt')
+      .then(response => response.text())
+      .then(data => {
+        const contentDiv = document.getElementById('content');
+        contentDiv.innerHTML = '';
+
+        data.split('\n').forEach(line => {
+          const p = document.createElement('p');
+          p.textContent = line;
+          contentDiv.appendChild(p);
+        });
+      })
+      .catch(error => {
+        document.getElementById('content').innerHTML = '<p>Could not load update message.</p>';
+        console.error('Error loading Update.txt:', error);
+      });
+  </script>
+</body>
+</html>
